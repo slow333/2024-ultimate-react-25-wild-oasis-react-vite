@@ -3,11 +3,10 @@ import {NavLink} from "react-router-dom";
 import { HiOutlineHome, HiOutlineCalendar, HiOutlineHomeModern,HiOutlineUserGroup ,HiOutlineCog6Tooth   }
   from "react-icons/hi2";
 
-
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1rem;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -21,23 +20,24 @@ const StyledNavLink = styled(NavLink)`
     font-size: 1.6rem;
     font-weight: 500;
     padding: 1.2rem 2.4rem;
-    transition: all 0.3s;
   }
-
   /* This works because react-router places the active class on the active NavLink */
   &:hover,
   &:active,
   &.active:link,
   &.active:visited {
     color: var(--color-grey-800);
-    background-color: var(--color-grey-200);
+    cursor: pointer;
     border-radius: var(--border-radius-sm);
+    outline: solid 1px var(--color-grey-300);
+    background-color: var(--color-grey-200);
+    transition: all 0.3s ease-in-out;
   }
 
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    color: var(--color-grey-400);
+    color: var(--color-green-700);
     transition: all 0.3s;
   }
 
@@ -46,27 +46,19 @@ const StyledNavLink = styled(NavLink)`
   &.active:link svg,
   &.active:visited svg {
     color: var(--color-brand-600);
+    transition: all 0.4s;
   }
 `;
+
 function MainNav() {
   return (
     <nav>
       <NavList>
-        <li><StyledNavLink to='/dashboard'>
-          <HiOutlineHome/><span>Home</span>
-        </StyledNavLink></li>
-        <li><StyledNavLink to='/bookings'>
-          <HiOutlineCalendar/>Bookings
-        </StyledNavLink></li>
-        <li><StyledNavLink to='/cabins'>
-          <HiOutlineHomeModern/>Cabins
-        </StyledNavLink></li>
-        <li><StyledNavLink to='/users'>
-          <HiOutlineUserGroup />Users
-        </StyledNavLink></li>
-        <li><StyledNavLink to='/settings'>
-          <HiOutlineCog6Tooth />Settings
-        </StyledNavLink></li>
+        <li><StyledNavLink to='/dashboard'> <HiOutlineHome />Home </StyledNavLink></li>
+        <li><StyledNavLink to='/bookings'> <HiOutlineCalendar />Bookings </StyledNavLink></li>
+        <li><StyledNavLink to='/cabins'> <HiOutlineHomeModern />Cabins </StyledNavLink></li>
+        <li><StyledNavLink to='/users'> <HiOutlineUserGroup />Users </StyledNavLink></li>
+        <li><StyledNavLink to='/settings'> <HiOutlineCog6Tooth />Settings </StyledNavLink></li>
       </NavList>
     </nav>
   )
