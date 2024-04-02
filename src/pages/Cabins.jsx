@@ -9,7 +9,6 @@ function Cabins() {
 
   const [showForm, setShowForm] = useState(false)
 
-
   return (
        <>
          <Row>
@@ -18,7 +17,7 @@ function Cabins() {
            <Row>
              <CabinTable/>
              <Button onClick={() => setShowForm(show => !show)}> Add new cabin</Button>
-             {showForm && <CreateCabinForm/>}
+             {showForm && <CreateCabinForm />}
            </Row>
          </Row>
        </>

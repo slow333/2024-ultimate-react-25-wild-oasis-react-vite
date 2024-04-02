@@ -1,10 +1,7 @@
-// noinspection JSValidateTypes
-
 import styled from "styled-components";
-import {useQuery} from "@tanstack/react-query";
-import {getCabins} from "../../services/apiCabins.js";
 import Spinner from "../../ui/Spinner.jsx";
 import CabinRow from "./CabinRow.jsx";
+import useCabins from "./useCabins.js";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -17,7 +14,7 @@ const Table = styled.div`
 
 const TableHeader = styled.header`
   display: grid;
-  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
+  grid-template-columns: 0.6fr 1fr 1.4fr 1fr 1fr 1.5fr;
   column-gap: 2.4rem;
   align-items: center;
 
@@ -31,22 +28,19 @@ const TableHeader = styled.header`
 `;
 
 function CabinTable() {
-  const {data: cabins, isLoading, error} = useQuery({
-    queryKey: ['cabins'],
-    queryFn: getCabins,
-  })
+  const { cabins, isLoading } = useCabins();
 
   if (isLoading) return <Spinner/>
 
   return (
        <Table role='table'>
          <TableHeader role='row'>
-           <div></div>
+           <div>View</div>
            <div>Cabin</div>
            <div>Capacity</div>
            <div>Price</div>
            <div>Discount</div>
-           <div></div>
+           <div>Actions</div>
          </TableHeader>
          {cabins.map(cabin =>
               <CabinRow key={cabin.id} cabin={cabin}/>)}

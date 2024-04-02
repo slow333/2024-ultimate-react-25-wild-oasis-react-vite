@@ -1,17 +1,11 @@
 import styled, {css} from "styled-components";
 
-/*const textAlign = css`
-   text-align: center;
-${10 > 5 && "background-color: green"}
-`*/
-
 const types = {
   h1: css`
      font-size: 3rem;
      font-weight: 600;
      color: var(--color-grey-900);
-     //background-color: var(--color-brand-50);
-     opacity: 0.5;
+     opacity: 0.8;
      text-align: center;
   `,
   h2: css`
@@ -28,6 +22,13 @@ const types = {
 
 const Heading = styled.h1`
   ${props => types[props.as]}
-   line-height: 1.5;
+   line-height: 0.2;
+  text-decoration: underline 0.2em var(--color-brand-200);
+  text-underline-offset: 0.3em;
+  text-decoration-color: transparent;
+  transition: 1s;
+  &:hover {
+    text-decoration-color: grey;
+  }
 `
 export default Heading;

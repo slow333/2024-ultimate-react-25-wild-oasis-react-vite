@@ -38,6 +38,7 @@ const variations = {
       background-color: var(--color-grey-50);
     }
   `,
+
   danger: css`
     color: var(--color-red-100);
     background-color: var(--color-red-700);
