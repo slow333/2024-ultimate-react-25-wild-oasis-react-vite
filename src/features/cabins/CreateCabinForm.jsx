@@ -10,6 +10,7 @@ import useCreateCabin from "./useCreateCabin.js";
 import useEditCabin from "./useEditCabin.js";
 
 function CreateCabinForm({cabinToEdit = {}}) {
+
   const {createCabin, isCreating} = useCreateCabin();
   const {editCabin, isEditing} = useEditCabin();
 
@@ -27,7 +28,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
     const image = typeof data.image === 'string' ? data.image : data.image[0]
 
     if (isEditSession) editCabin(
-         {newCabinData: {...data, image}, id: editId},
+         {newCabinData: {...data, image}, id: editId },
          {onSuccess: (data) => reset()}
     )
     else createCabin(
@@ -36,8 +37,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
     );
   }
 
-  function onError(error) {
-  }
+  function onError(error) { }
 
   return (
        <Form onSubmit={handleSubmit(onSubmit, onError)}>

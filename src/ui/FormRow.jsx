@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledFormRow = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: 16rem 1.8fr 1fr;
+  grid-template-columns: 20rem 1.8fr 1fr;
   gap: 1rem;
 
   padding: 1rem 0;

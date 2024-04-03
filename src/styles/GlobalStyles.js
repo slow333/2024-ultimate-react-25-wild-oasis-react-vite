@@ -1,8 +1,11 @@
 import {createGlobalStyle} from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 
- :root {
+  :root {
     /* Indigo */
     --color-brand-50: #eef2ff;
     --color-brand-100: #e0e7ff;

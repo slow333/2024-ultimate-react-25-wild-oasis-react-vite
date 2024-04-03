@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
-import styled from "styled-components";
-import {formatCurrency} from "../../utils/helpers.js";
-import Button from "../../ui/Button.jsx";
 import {useState} from "react";
+import styled from "styled-components";
 import CreateCabinForm from "./CreateCabinForm.jsx";
 import useDeleteCabin from "./useDeleteCabin.js";
+import {formatCurrency} from "../../utils/helpers.js";
+import Button from "../../ui/Button.jsx";
+import {HiOutlineDocumentDuplicate, HiOutlinePencil, HiOutlineTrash} from "react-icons/hi2";
+import useCreateCabin from "./useCreateCabin.js";
 
 const TableRow = styled.div`
   display: grid;
@@ -17,7 +19,6 @@ const TableRow = styled.div`
     border-bottom: 1px solid var(--color-grey-100);
   }
 `;
-
 const Img = styled.img`
   display: block;
   width: 5.5rem;
@@ -26,19 +27,16 @@ const Img = styled.img`
   object-position: center;
   transform: scale(1.5) translateX(-7px);
 `;
-
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
   font-family: "Sono";
 `;
-
 const Price = styled.div`
   font-family: "Sono", serif;
   font-weight: 600;
 `;
-
 const Discount = styled.div`
   font-family: "Sono", serif;
   font-weight: 500;
@@ -46,14 +44,24 @@ const Discount = styled.div`
 `;
 const BtnAlign = styled.div`
   display: flex;
-  gap: 0.7rem;
-`
+  gap: 0.4rem;
+`;
 
 function CabinRow({cabin}) {
-  const {id: cabinId, image, name, maxCapacity, regularPrice, discount } = cabin;
-  const [showForm, setShowForm] = useState(false);
+  const {id: cabinId, image, name, maxCapacity, regularPrice, discount, description} = cabin;
 
   const {deleteCabin, isDeleting} = useDeleteCabin();
+  const {createCabin, isCreating} = useCreateCabin();
+
+  function handleDuplicate() {
+    createCabin({
+      name: `Copy of ${name}`, image,
+      maxCapacity, regularPrice, discount, description
+    })
+  }
+
+  const [showForm, setShowForm] = useState(false);
+
   return (
        <>
          <TableRow role='row'>
@@ -63,9 +71,18 @@ function CabinRow({cabin}) {
            <Price>{formatCurrency(regularPrice)}</Price>
            {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
            <BtnAlign>
-             <Button size='small' variation='secondary' onClick={() => setShowForm(show => !show)}>Edit</Button>
-             <Button size='small' variation='danger'
-                     onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>Delete</Button>
+             <Button size='small' variation='secondary' name='duplicate'
+                     onClick={handleDuplicate} disabled={isCreating}>
+               <HiOutlineDocumentDuplicate/>
+             </Button>
+             <Button size='small' variation='secondary' name='edit'
+                     onClick={() => setShowForm(show => !show)}>
+               <HiOutlinePencil/>
+             </Button>
+             <Button size='small' variation='danger' name='delete'
+                     onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+               <HiOutlineTrash/>
+             </Button>
 
            </BtnAlign>
          </TableRow>

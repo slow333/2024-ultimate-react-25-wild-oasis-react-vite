@@ -1,5 +1,4 @@
 import supabase, {supabaseUrl} from "./supabase.js";
-import toast from "react-hot-toast";
 
 export async function getCabins() {
 
@@ -24,11 +23,13 @@ export async function deleteCabin(id) {
 
 export async function createEditCabin(newCabin, id) {
 
-  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl)
+  const hasImagePath = newCabin?.image?.startsWith?.(supabaseUrl);
+
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll('/', '');
   const imagePath = hasImagePath
        ? newCabin.image
        : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+
 
 // 1. create/edit cabin
   let query = supabase.from('cabins')
@@ -50,6 +51,8 @@ export async function createEditCabin(newCabin, id) {
   }
 
   // 2. upload image
+  if(hasImagePath) return data;
+
   const {error: storageErr} = await supabase.storage
        .from('cabin-images').upload(imageName, newCabin.image)
   if (storageErr) {
